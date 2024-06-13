@@ -18,9 +18,13 @@ module.exports = (env = {}) => ({
   // },
   output: {
     publicPath: 'auto',
+    clean: true,
   },
   resolve: {
     extensions: ['.vue', '.jsx', '.js', '.json'],
+    alias: {
+      vue: '@vue/compat/dist/vue.esm-bundler.js',
+    },
   },
   module: {
     rules: [
@@ -58,12 +62,13 @@ module.exports = (env = {}) => ({
         './Content': './src/components/Content.vue',
         './Button': './src/components/Button.vue',
       },
-      // shared: {
-      //   vue: {
-      //     eager: true,
-      //     singleton: true,
-      //   },
-      // },
+      shared: {
+        vue: {
+          eager: true,
+          singleton: true,
+          requiredVersion: '^3.1.0',
+        },
+      },
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './index.html'),
